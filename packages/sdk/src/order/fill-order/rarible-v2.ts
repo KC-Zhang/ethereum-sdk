@@ -22,7 +22,7 @@ export class RaribleV2OrderHandler implements OrderHandler<RaribleV2OrderFillReq
 	constructor(
 		private readonly ethereum: Maybe<Ethereum>,
 		private readonly send: SendFunction,
-		private readonly config: EthereumConfig,
+		private readonly config: { chainId: number, exchange:{v2:Address}, transferProxies:{nft:Address, erc1155Lazy: Address} },
 		private readonly getBaseOrderFeeConfig: (type: SimpleOrder["type"]) => Promise<number>,
 	) {}
 

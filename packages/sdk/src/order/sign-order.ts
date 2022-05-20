@@ -13,7 +13,7 @@ import type { SimpleOrder, SimpleRaribleV2Order } from "./types"
 
 export async function signOrder(
 	ethereum: Maybe<Ethereum>,
-	config: Pick<EthereumConfig, "exchange" | "chainId">,
+	config: { chainId: number, exchange:{v2:Address}},
 	order: SimpleOrder
 ): Promise<Binary> {
 	if (!ethereum) {
@@ -40,7 +40,7 @@ export async function signOrder(
 	}
 }
 
-export function hashToSign(config: Pick<EthereumConfig, "exchange" | "chainId">, ethereum: Ethereum, order: SimpleRaribleV2Order) {
+export function hashToSign(config: { chainId: number, exchange:{v2:Address}}, ethereum: Ethereum, order: SimpleRaribleV2Order) {
 	const domain = createEIP712Domain(config.chainId, config.exchange.v2)
 	return TypedDataUtils.sign({
 		primaryType: EIP712_ORDER_TYPE,
